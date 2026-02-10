@@ -675,11 +675,11 @@
         // Init Lucide
         lucide.createIcons();
         
-        // Fetch Occupied Dates (Only time GET is called)
-        fetchOccupiedDates();
-        
-        // Render Calendar
+        // Render Calendar Immediately (Empty)
         renderCalendar();
+        
+        // Fetch Occupied Dates (Background)
+        fetchOccupiedDates();
         
         // Setup Inputs
         setupInputHandlers();
@@ -720,10 +720,19 @@
       // FETCH BOOKED DATES
       async function fetchOccupiedDates() {
         try {
-            // We expect the script to handle a GET request and return JSON
-            const response = await fetch(API_URL);
-            const data = await response.json();
+            console.log("Fetching booked dates...");
+            // Use a timestamp to prevent caching
+            const response = await fetch(`${API_URL}?action=read&t=${Date.now()}`);
             
+            // Note: If the script doesn't return CORS headers, this might fail or return opaque.
+            // But we must use default CORS mode to read the body.
+            if (!response.ok) {
+                throw new Error(`HTTP Error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Dates fetched:", data);
+
             let rawDates = [];
             if (Array.isArray(data)) {
                  rawDates = data;
@@ -731,24 +740,29 @@
                  rawDates = data.occupied;
             }
 
-            // Normalize any incoming format (DD/MM/YYYY or ISO) to YYYY-MM-DD
+            // Normalize any incoming format to YYYY-MM-DD
             state.bookedDates = rawDates.map(dateStr => {
+                if (!dateStr) return null;
                 // If "YYYY-MM-DD..."
-                if (dateStr.match(/^\d{4}-\d{2}-\d{2}/)) {
+                if (dateStr.includes('-')) {
+                    // It might be YYYY-MM-DD or full ISO
                     return dateStr.split('T')[0];
                 }
                 // If "DD/MM/YYYY"
-                if (dateStr.match(/^\d{2}\/\d{2}\/\d{4}/)) {
-                    const [day, month, year] = dateStr.split('/');
-                    return `${year}-${month}-${day}`;
+                if (dateStr.includes('/')) {
+                    const parts = dateStr.split('/');
+                    if(parts.length === 3) {
+                         // assume DD/MM/YYYY
+                         return `${parts[2]}-${parts[1]}-${parts[0]}`;
+                    }
                 }
-                return null;
-            }).filter(Boolean); // Remove nulls
+                return dateStr;
+            }).filter(Boolean);
 
             renderCalendar();
 
         } catch (error) {
-            console.warn("Couldn't fetch occupied dates.", error);
+            console.warn("Couldn't fetch occupied dates. The app will proceed without blocking dates.", error);
         }
       }
 
@@ -847,8 +861,12 @@
         // Days
         for (let i = 1; i <= lastDay.getDate(); i++) {
           const date = new Date(year, month, i);
-          // Standardize date to YYYY-MM-DD for comparison with state.bookedDates
-          const dateString = date.toISOString().split('T')[0];
+          
+          // Helper to format local date to YYYY-MM-DD
+          const yearStr = date.getFullYear();
+          const monthStr = String(date.getMonth() + 1).padStart(2, '0');
+          const dayStr = String(date.getDate()).padStart(2, '0');
+          const dateString = `${yearStr}-${monthStr}-${dayStr}`;
           
           const isToday = date.getTime() === today.getTime();
           const isPast = date < today;
@@ -1131,7 +1149,13 @@
         
         // 2. Prepare Data
         // Format date to YYYY-MM-DD for consistency and machine readability
-        const dateFormatted = state.selectedDate ? state.selectedDate.toISOString().split('T')[0] : '';
+        let dateFormatted = '';
+        if (state.selectedDate) {
+             const yearStr = state.selectedDate.getFullYear();
+             const monthStr = String(state.selectedDate.getMonth() + 1).padStart(2, '0');
+             const dayStr = String(state.selectedDate.getDate()).padStart(2, '0');
+             dateFormatted = `${yearStr}-${monthStr}-${dayStr}`;
+        }
 
         // Optimistically book locally for this session
         if(dateFormatted && !state.bookedDates.includes(dateFormatted)) {
@@ -1160,6 +1184,11 @@
 
         // 3. Send Request (ONLY time POST is called)
         try {
+            console.log("Sending booking...", payload);
+            
+            // NOTE: Google Apps Script Web Apps handle POST requests.
+            // Using 'no-cors' means we cannot read the response, but it prevents the browser from blocking the request due to CORS policies.
+            // Using content-type 'text/plain' prevents a Preflight (OPTIONS) request which GAS does not handle.
             const response = await fetch(API_URL, {
                 method: 'POST',
                 body: JSON.stringify(payload),
@@ -1169,10 +1198,12 @@
                 }
             });
 
+            console.log("Booking sent (opaque response).");
+
             // With no-cors, we can't check response.ok. We assume success if no network error.
             document.getElementById('modal-state-loading').classList.add('hidden');
             document.getElementById('modal-state-success').classList.remove('hidden');
-            lucide.createIcons(); // Re-init icons for the success checkmark
+            lucide.createIcons(); 
 
         } catch (error) {
             console.error('Error submitting form:', error);
