@@ -594,7 +594,7 @@
       const state = {
         currentDate: new Date(),
         selectedDate: null,
-        bookedDates: [],
+        bookedDates: [], // Strings formatted as YYYY-MM-DD
         address: '',
         city: 'Franca',
         areaType: null,
@@ -675,6 +675,9 @@
         // Init Lucide
         lucide.createIcons();
         
+        // Fetch Occupied Dates
+        fetchOccupiedDates();
+        
         // Render Calendar
         renderCalendar();
         
@@ -713,6 +716,35 @@
           }, 500);
         }, totalDuration + 500); // 3s growth + small buffer
       };
+      
+      // FETCH BOOKED DATES
+      async function fetchOccupiedDates() {
+        try {
+            // We expect the script to handle a GET request and return JSON
+            // e.g., ["2023-10-25", "2023-10-26"]
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            
+            if (Array.isArray(data)) {
+                 // Normalize to YYYY-MM-DD
+                 state.bookedDates = data.map(d => {
+                     // If it's full ISO string, split it
+                     if(d.includes('T')) return d.split('T')[0];
+                     return d;
+                 });
+                 renderCalendar();
+            } else if (data && data.occupied) {
+                 // Handle { occupied: [...] } format
+                 state.bookedDates = data.occupied.map(d => {
+                     if(d.includes('T')) return d.split('T')[0];
+                     return d;
+                 });
+                 renderCalendar();
+            }
+        } catch (error) {
+            console.warn("Couldn't fetch occupied dates. Check if the script URL supports GET and CORS.", error);
+        }
+      }
 
       // INPUT HANDLERS SETUP
       function setupInputHandlers() {
@@ -809,9 +841,12 @@
         // Days
         for (let i = 1; i <= lastDay.getDate(); i++) {
           const date = new Date(year, month, i);
+          // Standardize date to YYYY-MM-DD for comparison
+          const dateString = date.toISOString().split('T')[0];
+          
           const isToday = date.getTime() === today.getTime();
           const isPast = date < today;
-          const isBooked = state.bookedDates.includes(date.toDateString());
+          const isBooked = state.bookedDates.includes(dateString);
           
           let classes = "aspect-square flex items-center justify-center rounded-full text-sm font-medium transition-all relative ";
           let disabled = false;
@@ -1089,9 +1124,12 @@
         document.getElementById('modal-state-loading').classList.remove('hidden');
         
         // 2. Prepare Data
-        if(state.selectedDate && !state.bookedDates.includes(state.selectedDate.toDateString())) {
+        // Format date to YYYY-MM-DD for consistency
+        const dateFormatted = state.selectedDate ? state.selectedDate.toISOString().split('T')[0] : '';
+
+        if(dateFormatted && !state.bookedDates.includes(dateFormatted)) {
             // Optimistically book locally (revert if error? For now, we assume simple flow)
-            state.bookedDates.push(state.selectedDate.toDateString());
+            state.bookedDates.push(dateFormatted);
         }
         
         let areaText = '';
@@ -1109,7 +1147,7 @@
             nome: finalName,
             cidade: state.city,
             endereco: state.address,
-            data: state.selectedDate ? state.selectedDate.toLocaleDateString('pt-BR') : '',
+            data: dateFormatted, // Send standardized date string
             terreno: finalTerreno,
             whatsapp: state.phone
         };
