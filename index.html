@@ -675,7 +675,7 @@
         // Init Lucide
         lucide.createIcons();
         
-        // Fetch Occupied Dates
+        // Fetch Occupied Dates (Only time GET is called)
         fetchOccupiedDates();
         
         // Render Calendar
@@ -721,28 +721,34 @@
       async function fetchOccupiedDates() {
         try {
             // We expect the script to handle a GET request and return JSON
-            // e.g., ["2023-10-25", "2023-10-26"]
             const response = await fetch(API_URL);
             const data = await response.json();
             
+            let rawDates = [];
             if (Array.isArray(data)) {
-                 // Normalize to YYYY-MM-DD
-                 state.bookedDates = data.map(d => {
-                     // If it's full ISO string, split it
-                     if(d.includes('T')) return d.split('T')[0];
-                     return d;
-                 });
-                 renderCalendar();
+                 rawDates = data;
             } else if (data && data.occupied) {
-                 // Handle { occupied: [...] } format
-                 state.bookedDates = data.occupied.map(d => {
-                     if(d.includes('T')) return d.split('T')[0];
-                     return d;
-                 });
-                 renderCalendar();
+                 rawDates = data.occupied;
             }
+
+            // Normalize any incoming format (DD/MM/YYYY or ISO) to YYYY-MM-DD
+            state.bookedDates = rawDates.map(dateStr => {
+                // If "YYYY-MM-DD..."
+                if (dateStr.match(/^\d{4}-\d{2}-\d{2}/)) {
+                    return dateStr.split('T')[0];
+                }
+                // If "DD/MM/YYYY"
+                if (dateStr.match(/^\d{2}\/\d{2}\/\d{4}/)) {
+                    const [day, month, year] = dateStr.split('/');
+                    return `${year}-${month}-${day}`;
+                }
+                return null;
+            }).filter(Boolean); // Remove nulls
+
+            renderCalendar();
+
         } catch (error) {
-            console.warn("Couldn't fetch occupied dates. Check if the script URL supports GET and CORS.", error);
+            console.warn("Couldn't fetch occupied dates.", error);
         }
       }
 
@@ -841,7 +847,7 @@
         // Days
         for (let i = 1; i <= lastDay.getDate(); i++) {
           const date = new Date(year, month, i);
-          // Standardize date to YYYY-MM-DD for comparison
+          // Standardize date to YYYY-MM-DD for comparison with state.bookedDates
           const dateString = date.toISOString().split('T')[0];
           
           const isToday = date.getTime() === today.getTime();
@@ -1124,11 +1130,11 @@
         document.getElementById('modal-state-loading').classList.remove('hidden');
         
         // 2. Prepare Data
-        // Format date to YYYY-MM-DD for consistency
+        // Format date to YYYY-MM-DD for consistency and machine readability
         const dateFormatted = state.selectedDate ? state.selectedDate.toISOString().split('T')[0] : '';
 
+        // Optimistically book locally for this session
         if(dateFormatted && !state.bookedDates.includes(dateFormatted)) {
-            // Optimistically book locally (revert if error? For now, we assume simple flow)
             state.bookedDates.push(dateFormatted);
         }
         
@@ -1147,12 +1153,12 @@
             nome: finalName,
             cidade: state.city,
             endereco: state.address,
-            data: dateFormatted, // Send standardized date string
+            data: dateFormatted, // Sending YYYY-MM-DD to API
             terreno: finalTerreno,
             whatsapp: state.phone
         };
 
-        // 3. Send Request
+        // 3. Send Request (ONLY time POST is called)
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
