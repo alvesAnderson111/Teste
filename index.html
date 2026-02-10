@@ -12,6 +12,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <script>
+      // Configurações Visuais do Tailwind
       tailwind.config = {
         theme: {
           extend: {
@@ -65,16 +66,12 @@
     <style>
       .hidden { display: none !important; }
       .tree-stage { transition: opacity 0.3s ease; }
-      /* Custom Scrollbar for nicer desktop feel */
       ::-webkit-scrollbar { width: 8px; }
       ::-webkit-scrollbar-track { background: transparent; }
       ::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 4px; }
       ::-webkit-scrollbar-thumb:hover { background: #34d399; }
-      
-      .input-error { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
-      .input-success { border-color: #10b981 !important; }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
     "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
@@ -86,14 +83,12 @@
 </head>
   <body class="bg-stone-50 text-stone-800 font-sans overflow-x-hidden relative min-h-screen flex flex-col">
     
-    <!-- Background Decor (Responsive Sizing) -->
+    <!-- Background Decor -->
     <div class="fixed top-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-emerald-100/50 rounded-full mix-blend-multiply filter blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-700"></div>
     <div class="fixed bottom-0 right-0 w-80 h-80 md:w-[30rem] md:h-[30rem] bg-emerald-200/50 rounded-full mix-blend-multiply filter blur-3xl opacity-30 translate-x-1/3 translate-y-1/3 pointer-events-none transition-all duration-700"></div>
 
     <!-- SPLASH SCREEN -->
     <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-stone-50 transition-opacity duration-500">
-      
-      <!-- Brand Name -->
       <div class="mb-8 flex flex-col items-center animate-slide-up">
         <div class="h-16 w-16 md:h-20 md:w-20 border-2 border-emerald-800 flex items-center justify-center rounded-full mb-2 shadow-lg bg-white">
           <span class="font-mono text-2xl md:text-3xl font-bold text-emerald-800 tracking-tighter">AJ</span>
@@ -101,50 +96,40 @@
         <h1 class="font-mono text-emerald-900 text-lg md:text-xl tracking-widest uppercase">Jardinagem</h1>
       </div>
 
-      <!-- Tree Animation Container -->
+      <!-- Tree Animation -->
       <div class="relative w-32 h-32 flex items-end justify-center mb-2">
-        <!-- Stage 1: Sprout -->
         <svg id="tree-1" class="tree-stage absolute bottom-0 text-emerald-500" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" stroke="none">
            <path d="M12 22c0-5 0-8 0-8c0-3-2-5-5-6c0 0 1.5 3 1.5 5c0 1-1.5 2-1.5 2s4 1 5 7" />
            <path d="M12 22c0-5 0-8 0-8c0-3 2-5 5-6c0 0-1.5 3-1.5 5c0 1 1.5 2 1.5 2s-4 1-5 7" />
         </svg>
-
-        <!-- Stage 2: Sapling -->
         <svg id="tree-2" class="tree-stage absolute bottom-0 text-emerald-600 hidden" width="64" height="64" viewBox="0 0 24 24" fill="currentColor" stroke="none">
            <path d="M12 22v-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
            <path d="M12 14c-3-4-6-5-6-9c0-2 2-3 4-3c1 0 2 1 2 3c0-2 1-3 2-3c2 0 4 1 4 3c0 4-3 5-6 9Z" />
         </svg>
-
-        <!-- Stage 3: Young Tree -->
         <svg id="tree-3" class="tree-stage absolute bottom-0 text-emerald-700 hidden" width="80" height="80" viewBox="0 0 24 24" fill="currentColor" stroke="none">
            <rect x="11" y="16" width="2" height="8" rx="1" fill="#4B3621"/>
            <path d="M12 4C7 4 4 8 4 11c0 2 2 4 4 5c-1 1-1 2 0 3c1 1 3 1 4 0c1 1 3 1 4 0c1 1 3 1 4 0c1 1 3 1 4 0c1-1 1-2 0-3c2-1 4-3 4-5c0-3-3-7-8-7Z" />
         </svg>
-
-        <!-- Stage 4: Mature Tree -->
         <svg id="tree-4" class="tree-stage absolute bottom-0 text-emerald-800 hidden" width="96" height="96" viewBox="0 0 24 24" fill="currentColor" stroke="none">
            <path d="M10 22h4v-6h-4z" fill="#3E2723"/> 
            <path d="M12 2C6 2 2 7 2 11c0 3 2 5 3 6c-1 1-1 2 0 3c2 2 5 1 7 0c2 1 5 2 7 0c1-1 1-2 0-3c1-1 3-3 3-6c0-4-4-9-10-9Z" />
         </svg>
       </div>
 
-      <!-- Progress Bar -->
       <div class="w-48 md:w-64 h-1.5 bg-stone-200 rounded-full overflow-hidden mb-8">
         <div class="h-full bg-emerald-600 rounded-full animate-grow-bar"></div>
       </div>
-
-      <!-- Location Warning -->
+      
       <div class="animate-fade-in opacity-0" style="animation-delay: 2.5s; animation-fill-mode: forwards;">
         <p class="text-emerald-800/70 text-xs font-bold tracking-widest uppercase bg-emerald-50 px-4 py-1.5 rounded-full border border-emerald-100 shadow-sm">
-          Apenas Franca e região
+          Franca e região
         </p>
       </div>
     </div>
 
-    <!-- MAIN APP WRAPPER -->
+    <!-- MAIN APP -->
     <div id="app-content" class="hidden relative z-10 py-6 md:py-12 flex-grow flex flex-col items-center">
       
-      <!-- HEADER -->
       <header class="flex justify-center mb-4 md:mb-10 animate-fade-in w-full">
         <div class="flex items-center gap-2 text-emerald-900 border-b-2 border-emerald-100 pb-2 px-4 transition-all hover:border-emerald-300">
           <span class="font-mono font-bold text-2xl md:text-3xl tracking-tighter">AJ</span>
@@ -153,23 +138,22 @@
         </div>
       </header>
 
-      <!-- CONTENT CONTAINER -->
       <div class="w-full max-w-md md:max-w-2xl lg:max-w-4xl mx-auto px-4">
 
-        <!-- VIEW: CALENDAR -->
+        <!-- CALENDAR -->
         <div id="view-calendar" class="w-full max-w-md mx-auto animate-fade-in hidden">
           <div class="mb-8 text-center">
             <h2 class="text-2xl md:text-3xl font-bold text-emerald-900 mb-2">Agende seu Orçamento</h2>
-            <p class="text-stone-500 text-sm md:text-base">Selecione o melhor dia para nossa visita técnica.</p>
+            <p class="text-stone-500 text-sm md:text-base">Selecione o melhor dia para nossa visita.</p>
           </div>
 
-          <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-stone-100 transition-shadow hover:shadow-2xl">
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-stone-100">
             <div class="bg-emerald-800 p-4 flex items-center justify-between text-white">
-              <button id="cal-prev" class="p-2 hover:bg-emerald-700 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white/50">
+              <button id="cal-prev" class="p-2 hover:bg-emerald-700 rounded-full transition-colors">
                 <i data-lucide="chevron-left" class="w-6 h-6"></i>
               </button>
               <span id="cal-month-name" class="font-semibold capitalize text-lg md:text-xl tracking-wide"></span>
-              <button id="cal-next" class="p-2 hover:bg-emerald-700 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white/50">
+              <button id="cal-next" class="p-2 hover:bg-emerald-700 rounded-full transition-colors">
                 <i data-lucide="chevron-right" class="w-6 h-6"></i>
               </button>
             </div>
@@ -184,6 +168,9 @@
               <div class="text-xs font-bold text-stone-400 font-mono">S</div>
             </div>
 
+            <div id="cal-loading" class="hidden p-8 text-center text-stone-400 text-sm">
+                Carregando agenda...
+            </div>
             <div id="cal-grid" class="grid grid-cols-7 gap-2 p-4 md:p-6 md:gap-3">
               <!-- Grid generated by JS -->
             </div>
@@ -192,1108 +179,520 @@
           <div class="mt-6 flex items-center justify-center gap-6 text-xs md:text-sm text-stone-500">
             <div class="flex items-center gap-2">
               <div class="w-3 h-3 rounded-full bg-emerald-500 border border-emerald-500 shadow-sm"></div>
-              <span>Hoje</span>
+              <span>Disponível</span>
             </div>
             <div class="flex items-center gap-2">
-              <div class="w-3 h-3 rounded-full bg-stone-200 shadow-sm"></div>
+              <div class="w-3 h-3 rounded-full bg-stone-200 shadow-sm relative"><div class="absolute inset-0 flex items-center justify-center"><div class="w-3/4 h-px bg-stone-400 rotate-45"></div></div></div>
               <span>Ocupado</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="w-3 h-3 rounded-full border border-stone-300 bg-white shadow-sm"></div>
-              <span>Livre</span>
             </div>
           </div>
         </div>
 
-        <!-- VIEW: SERVICES -->
+        <!-- SERVICES -->
         <div id="view-services" class="w-full max-w-md md:max-w-2xl mx-auto animate-fade-in pb-24 md:pb-12 hidden">
           <div class="flex items-center mb-6 pt-4">
             <button id="btn-back-services" class="p-2 -ml-2 text-stone-500 hover:bg-stone-100 rounded-full transition-colors">
               <i data-lucide="arrow-left" width="24" height="24"></i>
             </button>
-            <h2 class="text-xl md:text-2xl font-bold text-emerald-900 ml-2">Escolha os Serviços</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-emerald-900 ml-2">Serviços</h2>
           </div>
 
           <div class="space-y-4">
-            <p class="text-stone-500 text-sm md:text-base mb-4">Selecione um ou mais serviços que você precisa:</p>
-            
-            <!-- Grid Layout for Larger Screens -->
+            <p class="text-stone-500 text-sm md:text-base mb-4">O que você precisa?</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              
-              <!-- Roçada -->
-              <button class="btn-service p-4 md:p-6 rounded-xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-emerald-300 hover:shadow-md transition-all flex items-center gap-4 group text-left h-full" onclick="toggleService('Roçada', this)">
-                <div class="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-full bg-white border border-stone-100 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform shadow-sm">
-                  <i data-lucide="scissors" class="w-5 h-5 md:w-6 md:h-6"></i>
+              <button class="btn-service p-4 rounded-xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-emerald-300 transition-all flex items-center gap-4 group text-left h-full" onclick="toggleService('Roçada', this)">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-white border border-stone-100 flex items-center justify-center text-emerald-600 shadow-sm">
+                  <i data-lucide="scissors" class="w-6 h-6"></i>
                 </div>
                 <div class="flex-grow">
-                  <h3 class="font-bold text-stone-800 text-base md:text-lg">Roçada</h3>
-                  <p class="text-xs md:text-sm text-stone-500">Corte de grama e limpeza</p>
+                  <h3 class="font-bold text-stone-800">Roçada</h3>
+                  <p class="text-xs text-stone-500">Limpeza de grama</p>
                 </div>
-                <div class="ml-auto opacity-0 check-icon text-emerald-600">
-                  <i data-lucide="check-circle-2" class="w-6 h-6 md:w-7 md:h-7"></i>
-                </div>
+                <i data-lucide="check-circle-2" class="opacity-0 check-icon text-emerald-600 w-6 h-6"></i>
               </button>
 
-              <!-- Implantação -->
-              <button class="btn-service p-4 md:p-6 rounded-xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-emerald-300 hover:shadow-md transition-all flex items-center gap-4 group text-left h-full" onclick="toggleService('Implantação', this)">
-                <div class="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-full bg-white border border-stone-100 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform shadow-sm">
-                  <i data-lucide="shovel" class="w-5 h-5 md:w-6 md:h-6"></i>
+              <button class="btn-service p-4 rounded-xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-emerald-300 transition-all flex items-center gap-4 group text-left h-full" onclick="toggleService('Implantação', this)">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-white border border-stone-100 flex items-center justify-center text-emerald-600 shadow-sm">
+                  <i data-lucide="shovel" class="w-6 h-6"></i>
                 </div>
                 <div class="flex-grow">
-                  <h3 class="font-bold text-stone-800 text-base md:text-lg">Implantação</h3>
-                  <p class="text-xs md:text-sm text-stone-500">Criação de novos jardins</p>
+                  <h3 class="font-bold text-stone-800">Implantação</h3>
+                  <p class="text-xs text-stone-500">Jardim novo</p>
                 </div>
-                <div class="ml-auto opacity-0 check-icon text-emerald-600">
-                  <i data-lucide="check-circle-2" class="w-6 h-6 md:w-7 md:h-7"></i>
-                </div>
+                <i data-lucide="check-circle-2" class="opacity-0 check-icon text-emerald-600 w-6 h-6"></i>
               </button>
 
-              <!-- Retirada de Entulho -->
-              <button class="btn-service p-4 md:p-6 rounded-xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-emerald-300 hover:shadow-md transition-all flex items-center gap-4 group text-left h-full" onclick="toggleService('Retirada de Entulho', this)">
-                <div class="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-full bg-white border border-stone-100 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform shadow-sm">
-                  <i data-lucide="trash-2" class="w-5 h-5 md:w-6 md:h-6"></i>
+              <button class="btn-service p-4 rounded-xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-emerald-300 transition-all flex items-center gap-4 group text-left h-full" onclick="toggleService('Entulho', this)">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-white border border-stone-100 flex items-center justify-center text-emerald-600 shadow-sm">
+                  <i data-lucide="trash-2" class="w-6 h-6"></i>
                 </div>
                 <div class="flex-grow">
-                  <h3 class="font-bold text-stone-800 text-base md:text-lg">Retirada de Entulho</h3>
-                  <p class="text-xs md:text-sm text-stone-500">Limpeza pós-obra ou jardim</p>
+                  <h3 class="font-bold text-stone-800">Entulho</h3>
+                  <p class="text-xs text-stone-500">Limpeza pesada</p>
                 </div>
-                <div class="ml-auto opacity-0 check-icon text-emerald-600">
-                  <i data-lucide="check-circle-2" class="w-6 h-6 md:w-7 md:h-7"></i>
-                </div>
+                <i data-lucide="check-circle-2" class="opacity-0 check-icon text-emerald-600 w-6 h-6"></i>
               </button>
 
-              <!-- Manutenção -->
-              <button class="btn-service p-4 md:p-6 rounded-xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-emerald-300 hover:shadow-md transition-all flex items-center gap-4 group text-left h-full" onclick="toggleService('Manutenção de Jardim', this)">
-                <div class="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-full bg-white border border-stone-100 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform shadow-sm">
-                  <i data-lucide="flower-2" class="w-5 h-5 md:w-6 md:h-6"></i>
+              <button class="btn-service p-4 rounded-xl border border-stone-200 bg-stone-50 hover:bg-white hover:border-emerald-300 transition-all flex items-center gap-4 group text-left h-full" onclick="toggleService('Manutenção', this)">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-white border border-stone-100 flex items-center justify-center text-emerald-600 shadow-sm">
+                  <i data-lucide="flower-2" class="w-6 h-6"></i>
                 </div>
                 <div class="flex-grow">
-                  <h3 class="font-bold text-stone-800 text-base md:text-lg">Manutenção</h3>
-                  <p class="text-xs md:text-sm text-stone-500">Cuidado periódico</p>
+                  <h3 class="font-bold text-stone-800">Manutenção</h3>
+                  <p class="text-xs text-stone-500">Cuidados gerais</p>
                 </div>
-                <div class="ml-auto opacity-0 check-icon text-emerald-600">
-                  <i data-lucide="check-circle-2" class="w-6 h-6 md:w-7 md:h-7"></i>
-                </div>
+                <i data-lucide="check-circle-2" class="opacity-0 check-icon text-emerald-600 w-6 h-6"></i>
               </button>
             </div>
           </div>
 
           <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-stone-100 md:relative md:bg-transparent md:backdrop-blur-none md:border-0 md:p-0 md:mt-8 z-20">
-            <button
-              id="btn-services-next"
-              disabled
-              class="w-full py-4 md:py-3 bg-emerald-800 text-white rounded-xl font-semibold shadow-lg shadow-emerald-900/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-emerald-900 hover:shadow-xl hover:-translate-y-0.5 transition-all"
-            >
+            <button id="btn-services-next" disabled class="w-full py-4 md:py-3 bg-emerald-800 text-white rounded-xl font-semibold shadow-lg shadow-emerald-900/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-emerald-900 transition-all">
               Continuar
             </button>
           </div>
         </div>
 
-        <!-- VIEW: DETAILS FORM -->
+        <!-- DETAILS -->
         <div id="view-details" class="w-full max-w-md md:max-w-2xl mx-auto animate-fade-in pb-24 md:pb-12 hidden">
           <div class="flex items-center mb-6 pt-4">
             <button id="btn-back-details" class="p-2 -ml-2 text-stone-500 hover:bg-stone-100 rounded-full transition-colors">
               <i data-lucide="arrow-left" width="24" height="24"></i>
             </button>
-            <h2 class="text-xl md:text-2xl font-bold text-emerald-900 ml-2">Detalhes da Área</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-emerald-900 ml-2">Local</h2>
           </div>
 
           <div class="space-y-6">
-            <!-- Address -->
-            <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-stone-100">
               <div class="flex items-center gap-2 mb-3 text-emerald-700">
                 <i data-lucide="map-pin" width="20"></i>
-                <h3 class="font-semibold text-lg">Localização</h3>
+                <h3 class="font-semibold text-lg">Onde é o serviço?</h3>
               </div>
-              
-              <div class="mb-3">
-                <input
-                  id="input-city"
-                  type="text"
-                  placeholder="Cidade"
-                  class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none text-sm md:text-base transition-shadow"
-                />
-              </div>
-              
-              <textarea
-                id="input-address"
-                placeholder="Rua, Número, Bairro e Ponto de Referência"
-                class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none resize-none h-24 md:h-32 text-sm md:text-base transition-shadow"
-              ></textarea>
+              <input id="input-city" type="text" placeholder="Cidade" class="w-full p-4 mb-3 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500" value="Franca">
+              <textarea id="input-address" placeholder="Bairro e Rua" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none resize-none h-24 focus:ring-2 focus:ring-emerald-500"></textarea>
             </div>
 
-            <!-- Area Size -->
-            <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-stone-100 hover:shadow-md transition-shadow">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-stone-100">
               <div class="flex items-center gap-2 mb-4 text-emerald-700">
                 <i data-lucide="ruler" width="20"></i>
-                <h3 class="font-semibold text-lg">Tamanho da Área</h3>
+                <h3 class="font-semibold text-lg">Tamanho Aproximado</h3>
               </div>
-              
-              <!-- Responsive Grid for Area Buttons -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <button id="btn-area-200" class="btn-area w-full p-4 rounded-xl border text-left transition-all border-stone-200 hover:border-emerald-300 bg-stone-50 hover:bg-white" onclick="selectArea('200')">
+                <button id="btn-area-200" class="btn-area w-full p-4 rounded-xl border text-left bg-stone-50 border-stone-200" onclick="selectArea('200')">
                   <div class="font-semibold text-stone-800">Pequeno</div>
                   <div class="text-sm text-stone-500">Até 200m²</div>
                 </button>
-
-                <button id="btn-area-400" class="btn-area w-full p-4 rounded-xl border text-left transition-all border-stone-200 hover:border-emerald-300 bg-stone-50 hover:bg-white" onclick="selectArea('400')">
+                <button id="btn-area-400" class="btn-area w-full p-4 rounded-xl border text-left bg-stone-50 border-stone-200" onclick="selectArea('400')">
                   <div class="font-semibold text-stone-800">Médio</div>
                   <div class="text-sm text-stone-500">Até 400m²</div>
                 </button>
-
-                <button id="btn-area-personalized" class="btn-area w-full p-4 rounded-xl border text-left transition-all border-stone-200 hover:border-emerald-300 bg-stone-50 hover:bg-white" onclick="selectArea('personalized')">
-                  <div class="font-semibold text-stone-800">Personalizado</div>
-                  <div class="text-sm text-stone-500">Outra metragem</div>
+                <button id="btn-area-large" class="btn-area w-full p-4 rounded-xl border text-left bg-stone-50 border-stone-200" onclick="selectArea('large')">
+                  <div class="font-semibold text-stone-800">Grande</div>
+                  <div class="text-sm text-stone-500">+ de 400m²</div>
                 </button>
-
-                <button id="btn-area-unknown" class="btn-area w-full p-4 rounded-xl border text-left transition-all border-stone-200 hover:border-emerald-300 bg-stone-50 hover:bg-white" onclick="selectArea('unknown')">
-                  <div class="font-semibold text-stone-800">Não sei dizer</div>
+                <button id="btn-area-unknown" class="btn-area w-full p-4 rounded-xl border text-left bg-stone-50 border-stone-200" onclick="selectArea('unknown')">
+                  <div class="font-semibold text-stone-800">Não sei</div>
                   <div class="text-sm text-stone-500">Avaliar no local</div>
                 </button>
-              </div>
-
-              <div id="container-custom-area" class="mt-4 animate-fade-in hidden">
-                <label id="label-custom-area" class="text-xs md:text-sm text-stone-500 ml-1">Alguma observação? (Opcional)</label>
-                <input
-                  id="input-custom-area"
-                  type="text"
-                  placeholder="Ex: Área com desnível..."
-                  class="w-full mt-1 p-3 md:p-4 bg-white border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow"
-                />
               </div>
             </div>
           </div>
 
           <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-stone-100 md:relative md:bg-transparent md:backdrop-blur-none md:border-0 md:p-0 md:mt-8 z-20">
-            <button
-              id="btn-details-next"
-              disabled
-              class="w-full py-4 md:py-3 bg-emerald-800 text-white rounded-xl font-semibold shadow-lg shadow-emerald-900/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-emerald-900 hover:shadow-xl hover:-translate-y-0.5 transition-all"
-            >
+            <button id="btn-details-next" disabled class="w-full py-4 md:py-3 bg-emerald-800 text-white rounded-xl font-semibold shadow-lg shadow-emerald-900/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-emerald-900 transition-all">
               Continuar
             </button>
           </div>
         </div>
 
-        <!-- VIEW: REVIEW -->
+        <!-- REVIEW -->
         <div id="view-review" class="w-full max-w-md mx-auto animate-fade-in pb-24 md:pb-12 hidden">
           <div class="flex items-center mb-6 pt-4">
             <button id="btn-back-review" class="p-2 -ml-2 text-stone-500 hover:bg-stone-100 rounded-full transition-colors">
               <i data-lucide="arrow-left" width="24" height="24"></i>
             </button>
-            <h2 class="text-xl md:text-2xl font-bold text-emerald-900 ml-2">Revisar Solicitação</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-emerald-900 ml-2">Finalizar</h2>
           </div>
 
           <div class="space-y-6">
-            <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
               <div class="bg-stone-100 px-5 py-3 border-b border-stone-200">
-                <h3 class="text-sm font-mono text-stone-500 uppercase tracking-wider">Resumo</h3>
+                <h3 class="text-sm font-mono text-stone-500 uppercase tracking-wider">Resumo do Pedido</h3>
               </div>
-              
-              <div class="p-5 md:p-8 space-y-5">
-                <div class="flex items-start gap-4">
-                  <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600 shrink-0">
-                    <i data-lucide="calendar" width="20"></i>
-                  </div>
-                  <div>
-                    <p class="text-xs text-stone-500 font-medium uppercase">Data Escolhida</p>
-                    <p id="review-date" class="text-stone-800 capitalize font-medium text-lg">--</p>
-                  </div>
+              <div class="p-5 space-y-4">
+                <div class="flex justify-between border-b border-stone-100 pb-2">
+                   <span class="text-stone-500">Data</span>
+                   <span id="review-date" class="font-semibold text-stone-800">--</span>
                 </div>
-
-                 <div class="flex items-start gap-4">
-                  <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600 shrink-0">
-                    <i data-lucide="scissors" width="20"></i>
-                  </div>
-                  <div>
-                    <p class="text-xs text-stone-500 font-medium uppercase">Serviços</p>
-                    <p id="review-services" class="text-stone-800 text-sm md:text-base leading-relaxed">--</p>
-                  </div>
+                <div class="flex justify-between border-b border-stone-100 pb-2">
+                   <span class="text-stone-500">Serviços</span>
+                   <span id="review-services" class="font-semibold text-stone-800 text-right max-w-[60%]">--</span>
                 </div>
-
-                <div class="flex items-start gap-4">
-                  <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600 shrink-0">
-                    <i data-lucide="ruler" width="20"></i>
-                  </div>
-                  <div>
-                    <p class="text-xs text-stone-500 font-medium uppercase">Tamanho da Área</p>
-                    <p id="review-area" class="text-stone-800 font-medium">--</p>
-                  </div>
+                 <div class="flex justify-between border-b border-stone-100 pb-2">
+                   <span class="text-stone-500">Tamanho</span>
+                   <span id="review-area" class="font-semibold text-stone-800">--</span>
                 </div>
-
-                <div class="flex items-start gap-4">
-                  <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600 shrink-0">
-                    <i data-lucide="map-pin" width="20"></i>
-                  </div>
-                  <div>
-                    <p class="text-xs text-stone-500 font-medium uppercase">Endereço</p>
-                    <p id="review-address-full" class="text-stone-800 text-sm md:text-base leading-relaxed">--</p>
-                  </div>
+                 <div class="flex justify-between">
+                   <span class="text-stone-500">Local</span>
+                   <span id="review-address" class="font-semibold text-stone-800 text-right max-w-[60%]">--</span>
                 </div>
               </div>
             </div>
 
-            <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-stone-100 space-y-4 hover:shadow-md transition-shadow">
-              <div class="flex items-center gap-2 mb-4 text-emerald-700 border-b border-stone-100 pb-2">
-                <i data-lucide="user-circle-2" width="24"></i>
-                <h3 class="font-bold text-lg">Seus Dados</h3>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-stone-100">
+              <div class="flex items-center gap-2 mb-4 text-emerald-700">
+                <i data-lucide="user" width="20"></i>
+                <h3 class="font-semibold text-lg">Seu Nome</h3>
               </div>
+              <input id="input-name" type="text" placeholder="Como podemos te chamar?" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
 
-              <!-- Name -->
-              <div>
-                <label class="block text-xs font-medium text-stone-500 mb-1.5 ml-1">Nome Completo</label>
-                <input
-                  id="input-name"
-                  type="text"
-                  placeholder="Seu nome completo"
-                  class="w-full p-3 md:p-4 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow"
-                />
-                <p id="error-name" class="hidden text-xs text-red-500 mt-1.5 px-1 font-medium flex items-center gap-1">
-                  <i data-lucide="alert-circle" width="12"></i> Digite Nome e Sobrenome
-                </p>
+             <div class="bg-white p-5 rounded-2xl shadow-sm border border-stone-100">
+              <div class="flex items-center gap-2 mb-4 text-emerald-700">
+                <i data-lucide="phone" width="20"></i>
+                <h3 class="font-semibold text-lg">Seu WhatsApp</h3>
               </div>
-
-              <!-- CPF/CNPJ -->
-              <div>
-                <label class="block text-xs font-medium text-stone-500 mb-1.5 ml-1">CPF ou CNPJ</label>
-                <input
-                  id="input-cpf"
-                  type="text"
-                  placeholder="000.000.000-00"
-                  class="w-full p-3 md:p-4 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow"
-                  maxlength="18"
-                />
-                <p id="error-cpf" class="hidden text-xs text-red-500 mt-1.5 px-1 font-medium flex items-center gap-1">
-                  <i data-lucide="alert-circle" width="12"></i> CPF (11) ou CNPJ (14) incorreto
-                </p>
-              </div>
-
-              <!-- Phone -->
-              <div>
-                <label class="block text-xs font-medium text-stone-500 mb-1.5 ml-1">WhatsApp / Telefone</label>
-                <input
-                  id="input-phone"
-                  type="tel"
-                  placeholder="(00) 90000-0000"
-                  class="w-full p-3 md:p-4 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-lg font-mono transition-shadow"
-                  maxlength="15"
-                />
-                <p id="error-phone" class="hidden text-xs text-red-500 mt-1.5 px-1 font-medium flex items-center gap-1">
-                  <i data-lucide="alert-circle" width="12"></i> Telefone inválido (DDD + 9 + 8 dígitos)
-                </p>
-                <p class="text-xs text-stone-400 mt-2 px-1">
-                  Enviaremos o orçamento por este número.
-                </p>
-              </div>
+              <input id="input-phone" type="tel" placeholder="(DDD) 90000-0000" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500">
             </div>
           </div>
 
           <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-stone-100 md:relative md:bg-transparent md:backdrop-blur-none md:border-0 md:p-0 md:mt-8 z-20">
-            <button
-              id="btn-confirm-booking"
-              disabled
-              class="w-full py-4 md:py-3 bg-emerald-800 text-white rounded-xl font-bold shadow-lg shadow-emerald-900/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-emerald-900 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
-            >
-              CONFIRMAR ORÇAMENTO
-              <i data-lucide="check-circle" width="20"></i>
+            <button id="btn-whatsapp-send" disabled class="w-full py-4 md:py-3 bg-green-600 text-white rounded-xl font-bold shadow-lg hover:bg-green-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50">
+              <i data-lucide="message-circle" width="20"></i>
+              <span id="btn-text">CONFIRMAR E ENVIAR</span>
             </button>
+            <p class="text-center text-xs text-stone-400 mt-2">Você será redirecionado para falar com o Jardineiro.</p>
           </div>
-        </div>
-
-      </div> <!-- End Content Container -->
-    </div>
-
-    <!-- MODAL -->
-    <div id="modal-confirmation" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
-      <!-- Backdrop -->
-      <div id="modal-backdrop" class="absolute inset-0 bg-stone-900/60 backdrop-blur-sm animate-fade-in"></div>
-      
-      <!-- Modal Content -->
-      <div id="modal-content-wrapper" class="relative bg-white rounded-3xl p-6 md:p-8 w-full max-w-sm md:max-w-md shadow-2xl animate-slide-up transform transition-all">
-        
-        <!-- CLOSE BUTTON (Available in initial state only) -->
-        <button id="btn-close-modal" class="absolute top-4 right-4 text-stone-400 hover:text-stone-600 transition-colors bg-stone-100 rounded-full p-1">
-          <i data-lucide="x" width="20"></i>
-        </button>
-
-        <!-- STATE 1: CONFIRM -->
-        <div id="modal-state-confirm" class="flex flex-col items-center text-center mt-2">
-          <div class="w-16 h-16 md:w-20 md:h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
-            <i data-lucide="message-circle" class="w-8 h-8 md:w-10 md:h-10"></i>
-          </div>
-          
-          <h3 class="text-xl md:text-2xl font-bold text-emerald-900 mb-2">Enviar Solicitação?</h3>
-          
-          <p class="text-stone-600 mb-8 text-sm md:text-base leading-relaxed">
-            Ao confirmar, os dados do seu pedido serão preparados para envio e entraremos em contato.
-          </p>
-
-          <div class="w-full space-y-3">
-            <button
-              id="btn-final-confirm"
-              class="w-full py-3.5 bg-emerald-600 text-white rounded-xl font-semibold shadow-md hover:bg-emerald-700 hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
-            >
-              Sim, Confirmar
-            </button>
-            <button
-              id="btn-cancel-modal"
-              class="w-full py-3.5 bg-transparent text-stone-500 font-medium hover:text-stone-800 hover:bg-stone-50 rounded-xl transition-all"
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-
-        <!-- STATE 2: LOADING -->
-        <div id="modal-state-loading" class="hidden flex-col items-center text-center mt-6 mb-4">
-            <div class="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mb-4"></div>
-            <h3 class="text-lg font-bold text-stone-700">Enviando solicitação...</h3>
-            <p class="text-stone-400 text-sm mt-1">Por favor, aguarde.</p>
-        </div>
-
-        <!-- STATE 3: SUCCESS -->
-        <div id="modal-state-success" class="hidden flex-col items-center text-center mt-2">
-             <div class="w-16 h-16 md:w-20 md:h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4 shadow-inner animate-[fadeIn_0.5s_ease-out]">
-                <i data-lucide="check" class="w-8 h-8 md:w-10 md:h-10"></i>
-            </div>
-            <h3 class="text-xl md:text-2xl font-bold text-emerald-900 mb-2">Solicitação Enviada!</h3>
-            <p class="text-stone-600 mb-6 text-sm leading-relaxed">
-                Recebemos seu pedido com sucesso. Em breve entraremos em contato pelo WhatsApp informado.
-            </p>
-            <button
-              id="btn-success-close"
-              class="w-full py-3 bg-emerald-600 text-white rounded-xl font-semibold shadow-md hover:bg-emerald-700 transition-all"
-            >
-              Voltar ao Início
-            </button>
-        </div>
-
-        <!-- STATE 4: ERROR -->
-        <div id="modal-state-error" class="hidden flex-col items-center text-center mt-2">
-             <div class="w-16 h-16 md:w-20 md:h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                <i data-lucide="alert-triangle" class="w-8 h-8 md:w-10 md:h-10"></i>
-            </div>
-            <h3 class="text-xl md:text-2xl font-bold text-stone-800 mb-2">Ops, conexão instável</h3>
-            <p class="text-stone-600 mb-6 text-sm leading-relaxed">
-                Não conseguimos conectar com o servidor. Mas não se preocupe, você pode enviar o pedido direto pelo WhatsApp!
-            </p>
-            <div class="w-full space-y-3">
-                 <button
-                  id="btn-fallback-whatsapp"
-                  class="w-full py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all flex items-center justify-center gap-2 shadow-md"
-                >
-                  <i data-lucide="message-circle" width="20"></i> Enviar pelo WhatsApp
-                </button>
-                <button
-                  id="btn-error-retry"
-                  class="w-full py-3 bg-stone-200 text-stone-700 rounded-xl font-semibold hover:bg-stone-300 transition-all"
-                >
-                  Tentar Novamente
-                </button>
-            </div>
         </div>
 
       </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-      // STATE
+    <!-- SCRIPT DO FIREBASE (MODULE) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+      // CONFIGURAÇÃO DO FIREBASE (SUAS CHAVES)
+      const firebaseConfig = {
+        apiKey: "AIzaSyCHyVtCX8BAY9hNTAMkdS_6R0ImVdUqU8E",
+        authDomain: "agendamento-ba35b.firebaseapp.com",
+        projectId: "agendamento-ba35b",
+        storageBucket: "agendamento-ba35b.firebasestorage.app",
+        messagingSenderId: "397305864329",
+        appId: "1:397305864329:web:17c80a3ce3f16b5f44e658"
+      };
+
+      // Inicializa Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Estado Global
       const state = {
-        currentDate: new Date(),
-        selectedDate: null,
-        bookedDates: [], // Strings formatted as YYYY-MM-DD
-        address: '',
+        date: null,
         city: 'Franca',
-        areaType: null,
-        customAreaSize: '',
+        address: '',
+        area: '',
+        services: new Set(),
         name: '',
-        cpf: '',
-        phone: '',
-        services: new Set()
+        phone: '', // Adicionado telefone do cliente
+        blockedDates: []
       };
+      
+      const TELEFONE_JARDINEIRO = "5516993982648";
 
-      // CONFIG
-      const API_URL = "https://script.google.com/macros/s/AKfycbyYYpU9HBA0qRO_e-mBLSQkciSBz_VNtQrbOEDY2ZRZWMbMn0vypAR711BJScMVThB6/exec";
-
-      // VALIDATORS
-      const validators = {
-        name: (value) => {
-            const parts = value.trim().split(/\s+/);
-            return parts.length >= 2 && parts[0].length > 1 && parts[1].length > 1;
-        },
-        phone: (value) => {
-            const clean = value.replace(/\D/g, '');
-            // Must contain exactly 11 digits (DDD + 9 + 8 digits)
-            // Can optionally check if 3rd digit is 9: clean[2] === '9'
-            return clean.length === 11 && clean[2] === '9';
-        },
-        cpfCnpj: (value) => {
-            const clean = value.replace(/\D/g, '');
-            return clean.length === 11 || clean.length === 14;
-        },
-        city: (value) => {
-            return value.trim().length > 2;
-        }
-      };
-
-      // FORMATTERS
-      const formatters = {
-        phone: (value) => {
-            let r = value.replace(/\D/g, "");
-            r = r.replace(/^0/, "");
-            if (r.length > 11) r = r.substring(0, 11);
-
-            if (r.length > 10) {
-                // (11) 91234-5678
-                r = r.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
-            } else if (r.length > 5) {
-                // (11) 9123...
-                r = r.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
-            } else if (r.length > 2) {
-                // (11) 9...
-                r = r.replace(/^(\d\d)(\d{0,5})/, "($1) $2");
-            } else {
-                 r = r.replace(/^(\d*)/, "($1");
-            }
-            return r;
-        },
-        cpfCnpj: (value) => {
-             let v = value.replace(/\D/g, "");
-             if (v.length > 14) v = v.substring(0, 14);
-
-             if (v.length <= 11) {
-                 // CPF
-                 v = v.replace(/(\d{3})(\d)/, "$1.$2");
-                 v = v.replace(/(\d{3})(\d)/, "$1.$2");
-                 v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-             } else {
-                 // CNPJ
-                 v = v.replace(/^(\d{2})(\d)/, "$1.$2");
-                 v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
-                 v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
-                 v = v.replace(/(\d{4})(\d)/, "$1-$2");
-             }
-             return v;
-        }
-      };
-
-      // INIT
+      // Inicialização da Página
       window.onload = function() {
-        // Init Lucide
         lucide.createIcons();
-        
-        // Render Calendar Immediately (Empty)
-        renderCalendar();
-        
-        // Fetch Occupied Dates (Background)
-        fetchOccupiedDates();
+        fetchBlockedDates(); // Busca datas do Firebase
         
         // Setup Inputs
-        setupInputHandlers();
+        setupInput('input-city', 'city', validateDetails);
+        setupInput('input-address', 'address', validateDetails);
+        setupInput('input-name', 'name', validateReview);
+        setupInput('input-phone', 'phone', validateReview);
 
-        // Pre-fill default city
-        document.getElementById('input-city').value = state.city;
-
-        // Splash Animation Logic (Tree Growth)
+        // Animação da Árvore (Splash)
         const totalDuration = 3000;
-        const stageDuration = totalDuration / 4;
-        let currentStage = 1;
+        let stage = 1;
+        const interval = setInterval(() => {
+          if(stage < 4) {
+             const curr = document.getElementById(`tree-${stage}`);
+             const next = document.getElementById(`tree-${stage+1}`);
+             if(curr) curr.classList.add('hidden');
+             stage++;
+             if(next) next.classList.remove('hidden');
+          } else {
+             clearInterval(interval);
+          }
+        }, totalDuration/4);
 
-        const growthInterval = setInterval(() => {
-            if (currentStage < 4) {
-                // Hide current
-                document.getElementById(`tree-${currentStage}`).classList.add('hidden');
-                // Show next
-                currentStage++;
-                document.getElementById(`tree-${currentStage}`).classList.remove('hidden');
-            } else {
-                clearInterval(growthInterval);
-            }
-        }, stageDuration);
-        
-        // Splash Dismiss Timer
         setTimeout(() => {
-          const splash = document.getElementById('splash-screen');
-          splash.classList.add('opacity-0', 'pointer-events-none');
-          
+          document.getElementById('splash-screen').classList.add('opacity-0', 'pointer-events-none');
           setTimeout(() => {
-            splash.style.display = 'none';
+            document.getElementById('splash-screen').style.display = 'none';
             document.getElementById('app-content').classList.remove('hidden');
             showView('view-calendar');
           }, 500);
-        }, totalDuration + 500); // 3s growth + small buffer
+        }, totalDuration + 500);
       };
-      
-      // FETCH BOOKED DATES
-      async function fetchOccupiedDates() {
-        try {
-            console.log("Fetching booked dates...");
-            
-            // Note: For GAS Web Apps, we need to handle 302 redirects.
-            // 'redirect: follow' is default, but we specify it for clarity.
-            // We use simple GET. This requires the script to be accessible to "Anyone".
-            const response = await fetch(`${API_URL}?action=read&t=${Date.now()}`, {
-                method: 'GET',
-                redirect: 'follow'
-            });
 
-            if (!response.ok) {
-                console.warn(`Fetch error status: ${response.status}. Ensure GAS deployment is 'Anyone'`);
-                return;
-            }
+      // --- LÓGICA DO FIREBASE ---
 
-            const data = await response.json();
-            console.log("Dates fetched:", data);
-
-            let rawDates = [];
-            if (Array.isArray(data)) {
-                 rawDates = data;
-            } else if (data && data.occupied) {
-                 rawDates = data.occupied;
-            }
-
-            // Normalize any incoming format to YYYY-MM-DD
-            state.bookedDates = rawDates.map(dateStr => {
-                if (!dateStr || typeof dateStr !== 'string') return null;
-                
-                // If already ISO "YYYY-MM-DD..."
-                if (dateStr.includes('-')) {
-                    return dateStr.split('T')[0];
-                }
-                // If "DD/MM/YYYY"
-                if (dateStr.includes('/')) {
-                    const parts = dateStr.split('/');
-                    if(parts.length === 3) {
-                         // assume DD/MM/YYYY -> YYYY-MM-DD
-                         return `${parts[2]}-${parts[1]}-${parts[0]}`;
-                    }
-                }
-                return null;
-            }).filter(Boolean);
-
-            renderCalendar();
-
-        } catch (error) {
-            console.warn("Couldn't fetch occupied dates. Check console for details.", error);
-        }
+      // 1. Buscar datas ocupadas
+      async function fetchBlockedDates() {
+          const loadingEl = document.getElementById('cal-loading');
+          const gridEl = document.getElementById('cal-grid');
+          
+          if(loadingEl) loadingEl.classList.remove('hidden');
+          
+          try {
+              const querySnapshot = await getDocs(collection(db, "agendamento"));
+              state.blockedDates = [];
+              querySnapshot.forEach((doc) => {
+                  const data = doc.data();
+                  if (data.data) {
+                      state.blockedDates.push(data.data); // Espera formato YYYY-MM-DD
+                  }
+              });
+              console.log("Datas ocupadas:", state.blockedDates);
+          } catch (error) {
+              console.error("Erro ao buscar datas:", error);
+              // Não trava o app, mas avisa no console
+          } finally {
+              if(loadingEl) loadingEl.classList.add('hidden');
+              renderCalendar();
+          }
       }
 
-      // INPUT HANDLERS SETUP
-      function setupInputHandlers() {
-        const nameInput = document.getElementById('input-name');
-        const cpfInput = document.getElementById('input-cpf');
-        const phoneInput = document.getElementById('input-phone');
-        const cityInput = document.getElementById('input-city');
-        const addressInput = document.getElementById('input-address');
-        const customAreaInput = document.getElementById('input-custom-area');
+      // 2. Salvar agendamento
+      async function saveBooking() {
+          const btn = document.getElementById('btn-whatsapp-send');
+          const btnText = document.getElementById('btn-text');
+          
+          // UI Loading
+          btn.disabled = true;
+          btnText.innerText = "REGISTRANDO...";
+          
+          const dateStr = state.date ? state.date.toLocaleDateString('pt-BR').split('/').reverse().join('-') : ''; // YYYY-MM-DD para banco
 
-        // Name
-        nameInput.addEventListener('input', (e) => {
-            state.name = e.target.value;
-            validateContact(); // Update button state
-        });
-        nameInput.addEventListener('blur', () => validateField('name', nameInput, 'error-name', validators.name));
+          const dados = {
+            nome: state.name,
+            cidade: state.city,
+            endereco: state.address,
+            data: dateStr, // Salva YYYY-MM-DD para facilitar bloqueio
+            terreno: state.area,
+            whatsapp: state.phone,
+            servicos: Array.from(state.services).join(', '),
+            criadoEm: new Date().toISOString()
+          };
 
-        // CPF/CNPJ
-        cpfInput.addEventListener('input', (e) => {
-            e.target.value = formatters.cpfCnpj(e.target.value);
-            state.cpf = e.target.value;
-            validateContact();
-        });
-        cpfInput.addEventListener('blur', () => validateField('cpfCnpj', cpfInput, 'error-cpf', validators.cpfCnpj));
+          try {
+              // Salva no Firestore
+              await addDoc(collection(db, "agendamento"), dados);
+              
+              // Se deu certo, redireciona para o WhatsApp
+              openWhatsApp();
+              
+              // Reseta (opcional, ou recarrega a página)
+              // window.location.reload(); 
+          } catch (err) {
+              alert("Houve um erro de conexão ao salvar seu agendamento. Tente novamente ou verifique sua internet.");
+              console.error(err);
+              
+              // Fallback: Se der erro no banco, ainda tenta abrir o WhatsApp?
+              // Melhor garantir que o usuário saiba que deu erro no sistema, mas deixamos ele mandar msg.
+              if(confirm("Erro ao salvar no sistema. Deseja enviar mensagem no WhatsApp mesmo assim?")) {
+                  openWhatsApp();
+              }
+          } finally {
+              btn.disabled = false;
+              btnText.innerText = "CONFIRMAR E ENVIAR";
+          }
+      }
 
-        // Phone
-        phoneInput.addEventListener('input', (e) => {
-            e.target.value = formatters.phone(e.target.value);
-            state.phone = e.target.value;
-            validateContact();
-        });
-        phoneInput.addEventListener('blur', () => validateField('phone', phoneInput, 'error-phone', validators.phone));
-        
-        // Address & City
-        cityInput.addEventListener('input', (e) => {
-            state.city = e.target.value;
-            validateDetails();
-        });
-        addressInput.addEventListener('input', (e) => {
-            state.address = e.target.value;
-            validateDetails();
-        });
-        customAreaInput.addEventListener('input', (e) => {
-             state.customAreaSize = e.target.value;
-             validateDetails();
+      function openWhatsApp() {
+          const dateStr = state.date.toLocaleDateString('pt-BR');
+          const servicesStr = Array.from(state.services).join(', ');
+          
+          let areaTxt = '';
+          if(state.area === '200') areaTxt = 'Pequeno (até 200m²)';
+          else if(state.area === '400') areaTxt = 'Médio (até 400m²)';
+          else if(state.area === 'large') areaTxt = 'Grande (+400m²)';
+          else areaTxt = 'Não sei informar';
+
+          const msg = 
+`*Olá! Gostaria de um orçamento de jardinagem.* 🌿
+
+📅 *Data:* ${dateStr}
+✂️ *Serviços:* ${servicesStr}
+📏 *Área:* ${areaTxt}
+📍 *Local:* ${state.address} - ${state.city}
+
+👤 *Nome:* ${state.name}
+📞 *Contato:* ${state.phone}
+
+O pedido já foi registrado no sistema. Podemos confirmar?`;
+
+          const link = `https://wa.me/${TELEFONE_JARDINEIRO}?text=${encodeURIComponent(msg)}`;
+          window.open(link, '_blank');
+      }
+
+      // --- INTERFACE ---
+
+      function setupInput(id, key, validator) {
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.addEventListener('input', (e) => {
+           state[key] = e.target.value;
+           validator();
         });
       }
 
-      function validateField(type, inputElement, errorElementId, validatorFn) {
-        const errorEl = document.getElementById(errorElementId);
-        const isValid = validatorFn(inputElement.value);
-
-        if (!isValid && inputElement.value.length > 0) {
-            // Show Error
-            errorEl.classList.remove('hidden');
-            inputElement.classList.add('input-error');
-            inputElement.classList.remove('input-success', 'border-stone-200');
-        } else {
-            // Hide Error
-            errorEl.classList.add('hidden');
-            inputElement.classList.remove('input-error');
-            if (inputElement.value.length > 0) {
-                 inputElement.classList.add('input-success');
-                 inputElement.classList.remove('border-stone-200');
-            } else {
-                inputElement.classList.remove('input-success');
-                inputElement.classList.add('border-stone-200');
-            }
-        }
-      }
-
-      // CALENDAR LOGIC
+      // CALENDAR
       function renderCalendar() {
-        const year = state.currentDate.getFullYear();
-        const month = state.currentDate.getMonth();
+        const today = new Date();
+        const year = state.currentDate ? state.currentDate.getFullYear() : today.getFullYear();
+        const month = state.currentDate ? state.currentDate.getMonth() : today.getMonth();
         
-        // Update Header
+        if(!state.currentDate) state.currentDate = new Date(year, month, 1);
+
         const monthName = state.currentDate.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
         document.getElementById('cal-month-name').textContent = monthName;
 
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
-        const today = new Date();
-        today.setHours(0,0,0,0);
         
         let html = '';
+        for(let i=0; i<firstDay.getDay(); i++) html += `<div class='aspect-square'></div>`;
         
-        // Padding days
-        const startDayOfWeek = firstDay.getDay(); 
-        for (let i = 0; i < startDayOfWeek; i++) {
-          html += `<div class="aspect-square flex items-center justify-center rounded-full text-sm font-medium text-stone-300 relative cursor-default"></div>`; // Simplified padding
+        for(let i=1; i<=lastDay.getDate(); i++) {
+            const d = new Date(year, month, i);
+            // Formata localmente para comparar com o banco (YYYY-MM-DD)
+            // Cuidado com timezone, vamos usar padronização simples
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            const iso = `${y}-${m}-${day}`;
+            
+            // CHECK FIREBASE BLOCKED DATES
+            const isBlocked = state.blockedDates.includes(iso);
+            
+            // Bloqueia passado
+            const todayReset = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const isPast = d < todayReset;
+            
+            let cls = "aspect-square rounded-full font-medium flex items-center justify-center transition-all relative ";
+            let disabled = false;
+
+            if(isBlocked) {
+                cls += "bg-stone-200 text-stone-400 cursor-not-allowed ";
+                html += `<div class="${cls}"><div class="absolute inset-0 flex items-center justify-center"><div class="w-3/4 h-px bg-stone-400 rotate-45"></div></div>${i}</div>`;
+                continue;
+            } else if(isPast) {
+                cls += "text-stone-300 cursor-not-allowed ";
+                disabled = true;
+            } else if(state.date && state.date.getTime() === d.getTime()) {
+                cls += "bg-emerald-800 text-white shadow-lg scale-110 ";
+            } else {
+                cls += "hover:bg-emerald-100 text-stone-700 cursor-pointer ";
+            }
+
+            html += `<button onclick="window.selectDate('${iso}')" class="${cls}" ${disabled ? 'disabled' : ''}>${i}</button>`;
         }
-        
-        // Days
-        for (let i = 1; i <= lastDay.getDate(); i++) {
-          const date = new Date(year, month, i);
-          
-          // Helper to format local date to YYYY-MM-DD
-          const yearStr = date.getFullYear();
-          const monthStr = String(date.getMonth() + 1).padStart(2, '0');
-          const dayStr = String(date.getDate()).padStart(2, '0');
-          const dateString = `${yearStr}-${monthStr}-${dayStr}`;
-          
-          const isToday = date.getTime() === today.getTime();
-          const isPast = date < today;
-          const isBooked = state.bookedDates.includes(dateString);
-          
-          let classes = "aspect-square flex items-center justify-center rounded-full text-sm font-medium transition-all relative ";
-          let disabled = false;
-
-          if (isToday) classes += "border-2 border-emerald-500 text-emerald-700 font-bold ";
-          
-          if (isBooked) {
-             classes += "bg-stone-200 text-stone-400 cursor-not-allowed line-through ";
-             disabled = true;
-          } else if (isPast) {
-             classes += "text-stone-300 cursor-not-allowed ";
-             disabled = true;
-          } else {
-             classes += "hover:bg-emerald-100 hover:text-emerald-900 text-stone-700 cursor-pointer ";
-          }
-
-          if (state.selectedDate && date.getTime() === state.selectedDate.getTime()) {
-             classes = classes.replace("hover:bg-emerald-100", "").replace("text-stone-700", "") + " bg-emerald-800 text-white shadow-lg transform scale-105 ";
-          }
-
-          html += `<button 
-            onclick="${disabled ? '' : `selectDate('${date.toISOString()}')`}" 
-            class="${classes}" 
-            ${disabled ? 'disabled' : ''}>
-            ${i}
-          </button>`;
-        }
-        
         document.getElementById('cal-grid').innerHTML = html;
       }
 
-      function selectDate(dateIso) {
-        state.selectedDate = new Date(dateIso);
-        // Navigate to Services
-        showView('view-services');
+      // EXPOSING FUNCTIONS TO WINDOW (For HTML onclick handlers)
+      window.selectDate = function(iso) {
+          const parts = iso.split('-');
+          state.date = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+          renderCalendar();
+          showView('view-services');
       }
 
+      window.toggleService = function(name, btn) {
+          if(state.services.has(name)) {
+              state.services.delete(name);
+              btn.classList.remove('border-emerald-500', 'bg-emerald-50');
+              btn.classList.add('border-stone-200', 'bg-stone-50');
+              btn.querySelector('.check-icon').classList.add('opacity-0');
+          } else {
+              state.services.add(name);
+              btn.classList.remove('border-stone-200', 'bg-stone-50');
+              btn.classList.add('border-emerald-500', 'bg-emerald-50');
+              btn.querySelector('.check-icon').classList.remove('opacity-0');
+          }
+          document.getElementById('btn-services-next').disabled = state.services.size === 0;
+      }
+
+      window.selectArea = function(type) {
+          state.area = type;
+          document.querySelectorAll('.btn-area').forEach(b => {
+             b.classList.remove('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500');
+             b.classList.add('bg-stone-50', 'border-stone-200');
+          });
+          const btn = document.getElementById(`btn-area-${type}`);
+          if(btn) {
+              btn.classList.remove('bg-stone-50', 'border-stone-200');
+              btn.classList.add('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500');
+          }
+          validateDetails();
+      }
+      
+      // DOM EVENTS
       document.getElementById('cal-prev').onclick = () => {
-        state.currentDate = new Date(state.currentDate.getFullYear(), state.currentDate.getMonth() - 1, 1);
-        // Prevent going too far back
-        const today = new Date();
-        if(state.currentDate < new Date(today.getFullYear(), today.getMonth(), 1)) {
-            state.currentDate = new Date(today.getFullYear(), today.getMonth(), 1);
-        }
-        renderCalendar();
-      };
-
+          state.currentDate.setMonth(state.currentDate.getMonth()-1);
+          renderCalendar();
+      }
       document.getElementById('cal-next').onclick = () => {
-        state.currentDate = new Date(state.currentDate.getFullYear(), state.currentDate.getMonth() + 1, 1);
-        renderCalendar();
-      };
-
-      // SERVICES LOGIC
-      function toggleService(serviceName, btnElement) {
-        if (state.services.has(serviceName)) {
-            state.services.delete(serviceName);
-            // Visual Deselect
-            btnElement.classList.remove('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500');
-            btnElement.classList.add('border-stone-200', 'bg-stone-50');
-            btnElement.querySelector('.check-icon').classList.add('opacity-0');
-        } else {
-            state.services.add(serviceName);
-            // Visual Select
-            btnElement.classList.remove('border-stone-200', 'bg-stone-50');
-            btnElement.classList.add('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500');
-            btnElement.querySelector('.check-icon').classList.remove('opacity-0');
-        }
-        
-        const btnNext = document.getElementById('btn-services-next');
-        if (state.services.size > 0) {
-            btnNext.removeAttribute('disabled');
-        } else {
-            btnNext.setAttribute('disabled', 'true');
-        }
+          state.currentDate.setMonth(state.currentDate.getMonth()+1);
+          renderCalendar();
       }
       
-      document.getElementById('btn-services-next').onclick = () => {
-        showView('view-details');
-      };
+      document.getElementById('btn-services-next').onclick = () => showView('view-details');
+      document.getElementById('btn-back-services').onclick = () => showView('view-calendar');
       
-      document.getElementById('btn-back-services').onclick = () => {
-        showView('view-calendar');
-        renderCalendar();
-      };
-
-      // DETAILS FORM LOGIC
-      function selectArea(type) {
-        state.areaType = type;
-        
-        // Update UI
-        document.querySelectorAll('.btn-area').forEach(btn => {
-           btn.classList.remove('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500');
-           btn.classList.add('border-stone-200', 'bg-stone-50');
-        });
-        
-        const activeBtn = document.getElementById(`btn-area-${type}`);
-        activeBtn.classList.remove('border-stone-200', 'bg-stone-50');
-        activeBtn.classList.add('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500');
-
-        const container = document.getElementById('container-custom-area');
-        const label = document.getElementById('label-custom-area');
-        const input = document.getElementById('input-custom-area');
-        
-        if (type === 'personalized') {
-            container.classList.remove('hidden');
-            label.textContent = "Informe o tamanho aproximado:";
-            input.placeholder = "Ex: 1000m²";
-            input.focus();
-        } else if (type === 'unknown') {
-            container.classList.remove('hidden');
-            label.textContent = "Alguma observação? (Opcional)";
-            input.placeholder = "Ex: Terreno com muito mato...";
-        } else {
-            container.classList.add('hidden');
-        }
-        validateDetails();
-      }
-
       function validateDetails() {
-        const addressValid = state.address.trim().length > 5;
-        const cityValid = state.city.trim().length > 2;
-        let areaValid = !!state.areaType;
-        
-        // If personalized, size input is required
-        if (state.areaType === 'personalized') {
-             areaValid = state.customAreaSize.trim().length > 0;
-        }
-        
-        const btn = document.getElementById('btn-details-next');
-        if (addressValid && cityValid && areaValid) {
-           btn.removeAttribute('disabled');
-        } else {
-           btn.setAttribute('disabled', 'true');
-        }
+          const valid = state.city.length > 2 && state.address.length > 5 && state.area;
+          document.getElementById('btn-details-next').disabled = !valid;
       }
 
       document.getElementById('btn-details-next').onclick = () => {
-        prepareReview();
-        showView('view-review');
-      };
-
-      document.getElementById('btn-back-details').onclick = () => {
-        // Go back to services
-        showView('view-services');
-      };
-
-
-      // REVIEW LOGIC
-      function prepareReview() {
-        const dateStr = state.selectedDate ? state.selectedDate.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : '--';
-        document.getElementById('review-date').textContent = dateStr;
-        document.getElementById('review-address-full').textContent = `${state.address} - ${state.city}`;
-        
-        // Services
-        const servicesList = Array.from(state.services).join(', ');
-        document.getElementById('review-services').textContent = servicesList || 'Nenhum selecionado';
-
-        let areaText = 'Não informado';
-        if (state.areaType === '200') areaText = 'Pequeno (Até 200m²)';
-        else if (state.areaType === '400') areaText = 'Médio (Até 400m²)';
-        else if (state.areaType === 'personalized') areaText = `Personalizado: ${state.customAreaSize}`;
-        else if (state.areaType === 'unknown') areaText = 'Avaliar no local (Não sei dizer)';
-        
-        if (state.areaType === 'unknown' && state.customAreaSize) {
-             areaText += ` - Obs: ${state.customAreaSize}`;
-        }
-        
-        document.getElementById('review-area').textContent = areaText;
+          document.getElementById('review-date').innerText = state.date.toLocaleDateString('pt-BR');
+          document.getElementById('review-services').innerText = Array.from(state.services).join(', ');
+          
+          let areaTxt = '';
+          if(state.area === '200') areaTxt = 'Pequeno';
+          else if(state.area === '400') areaTxt = 'Médio';
+          else if(state.area === 'large') areaTxt = 'Grande';
+          else areaTxt = 'Avaliar no local';
+          
+          document.getElementById('review-area').innerText = areaTxt;
+          document.getElementById('review-address').innerText = `${state.address} - ${state.city}`;
+          
+          showView('view-review');
       }
+      document.getElementById('btn-back-details').onclick = () => showView('view-services');
 
-      function validateContact() {
-        // Use Strict Validators
-        const phoneValid = validators.phone(state.phone);
-        const nameValid = validators.name(state.name);
-        const cpfValid = validators.cpfCnpj(state.cpf);
-
-        const btn = document.getElementById('btn-confirm-booking');
-        if (phoneValid && nameValid && cpfValid) {
-            btn.removeAttribute('disabled');
-        } else {
-            btn.setAttribute('disabled', 'true');
-        }
-      }
-
-      document.getElementById('btn-back-review').onclick = () => {
-        showView('view-details');
-      };
-
-      document.getElementById('btn-confirm-booking').onclick = () => {
-        // Reset Modal State
-        document.getElementById('modal-state-confirm').classList.remove('hidden');
-        document.getElementById('modal-state-loading').classList.add('hidden');
-        document.getElementById('modal-state-success').classList.add('hidden');
-        document.getElementById('modal-state-error').classList.add('hidden');
-        document.getElementById('btn-close-modal').classList.remove('hidden');
-        
-        document.getElementById('modal-confirmation').classList.remove('hidden');
-      };
-
-
-      // MODAL LOGIC
-      function closeModal() {
-        document.getElementById('modal-confirmation').classList.add('hidden');
+      function validateReview() {
+          const nameValid = state.name.trim().length > 2;
+          const phoneValid = state.phone.trim().length > 8;
+          document.getElementById('btn-whatsapp-send').disabled = !(nameValid && phoneValid);
       }
       
-      function resetForm() {
-        // Reset App State
-        state.selectedDate = null;
-        state.address = '';
-        state.city = 'Franca'; // Reset to default
-        state.areaType = null;
-        state.customAreaSize = '';
-        state.name = '';
-        state.cpf = '';
-        state.phone = '';
-        state.services.clear();
-        
-        // Reset Inputs
-        document.getElementById('input-address').value = '';
-        document.getElementById('input-city').value = 'Franca';
-        document.getElementById('input-custom-area').value = '';
-        document.getElementById('input-name').value = '';
-        document.getElementById('input-cpf').value = '';
-        document.getElementById('input-phone').value = '';
-        
-        // Reset visual state of inputs
-        ['input-name', 'input-cpf', 'input-phone'].forEach(id => {
-             const el = document.getElementById(id);
-             el.classList.remove('input-success', 'input-error');
-             el.classList.add('border-stone-200');
-        });
-        ['error-name', 'error-cpf', 'error-phone'].forEach(id => {
-             document.getElementById(id).classList.add('hidden');
-        });
-        
-        document.querySelectorAll('.btn-service').forEach(btn => {
-             btn.classList.remove('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500');
-             btn.classList.add('border-stone-200', 'bg-stone-50');
-             btn.querySelector('.check-icon').classList.add('opacity-0');
-        });
+      document.getElementById('btn-back-review').onclick = () => showView('view-details');
 
-        document.querySelectorAll('.btn-area').forEach(btn => {
-           btn.classList.remove('border-emerald-500', 'bg-emerald-50', 'ring-1', 'ring-emerald-500');
-           btn.classList.add('border-stone-200', 'bg-stone-50');
-        });
-        document.getElementById('container-custom-area').classList.add('hidden');
-        document.getElementById('btn-services-next').setAttribute('disabled', 'true');
-        document.getElementById('btn-details-next').setAttribute('disabled', 'true');
-        document.getElementById('btn-confirm-booking').setAttribute('disabled', 'true');
-
-        showView('view-calendar');
-        renderCalendar(); 
+      // Botão Final
+      document.getElementById('btn-whatsapp-send').onclick = function() {
+          saveBooking();
       }
 
-      document.getElementById('btn-close-modal').onclick = closeModal;
-      document.getElementById('btn-cancel-modal').onclick = closeModal;
-      document.getElementById('modal-backdrop').onclick = closeModal;
-      
-      document.getElementById('btn-success-close').onclick = () => {
-          closeModal();
-          resetForm();
+      function showView(id) {
+          ['view-calendar', 'view-services', 'view-details', 'view-review'].forEach(v => document.getElementById(v).classList.add('hidden'));
+          document.getElementById(id).classList.remove('hidden');
+          window.scrollTo(0,0);
       }
-      
-      document.getElementById('btn-error-retry').onclick = () => {
-         // Return to confirm state
-         document.getElementById('modal-state-error').classList.add('hidden');
-         document.getElementById('modal-state-confirm').classList.remove('hidden');
-         document.getElementById('btn-close-modal').classList.remove('hidden');
-      };
-
-      // --- WHATSAPP GENERATOR ---
-      function generateWhatsAppLink() {
-          let dateFormatted = '';
-          if (state.selectedDate) {
-              dateFormatted = state.selectedDate.toLocaleDateString('pt-BR');
-          }
-
-          let areaText = '';
-          if (state.areaType === '200') areaText = 'Pequeno (Até 200m²)';
-          else if (state.areaType === '400') areaText = 'Médio (Até 400m²)';
-          else if (state.areaType === 'personalized') areaText = `Personalizado: ${state.customAreaSize}`;
-          else areaText = 'Avaliar no local';
-
-          const servicesList = Array.from(state.services).join(', ');
-
-          const msg = `*Olá, gostaria de solicitar um orçamento!*\n\n` +
-                      `📅 *Data desejada:* ${dateFormatted}\n` +
-                      `👤 *Nome:* ${state.name}\n` +
-                      `📍 *Cidade:* ${state.city}\n` +
-                      `🏡 *Endereço:* ${state.address}\n` +
-                      `📏 *Tamanho:* ${areaText}\n` +
-                      `✂️ *Serviços:* ${servicesList}\n\n` +
-                      `Aguardo confirmação.`;
-
-          return `https://wa.me/55${state.phone.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`;
-          // Note: Ideally this goes to the GARDENER'S number, but for now we fallback to letting the user send it. 
-          // If you have the gardener's number, replace state.phone with that number (e.g., 5516999999999).
-      }
-      
-      document.getElementById('btn-fallback-whatsapp').onclick = () => {
-           // We'll open WhatsApp to the Gardener (assuming the user puts their own phone in the input, 
-           // usually the client wants to message the business. 
-           // REPLACE '5516999999999' with the Gardener's actual number below if known, 
-           // otherwise this opens a chat to the number provided in the form (self-chat), which is weird.
-           // For now, I'll alert the user to send it.
-           
-           // Assuming a default Gardener number for the fallback to work properly:
-           // const gardenerNumber = "5511999999999"; // REPLACE THIS
-           // window.open(`https://wa.me/${gardenerNumber}?text=...`);
-           
-           // Since I don't have the gardener's number, I'll just simulate opening the API.
-           alert("Como não temos o número do jardineiro configurado fixo aqui, vou gerar o texto para você copiar!");
-           console.log(generateWhatsAppLink());
-      };
-
-
-      document.getElementById('btn-final-confirm').onclick = async () => {
-        // 1. UI Loading State
-        document.getElementById('modal-state-confirm').classList.add('hidden');
-        document.getElementById('btn-close-modal').classList.add('hidden');
-        document.getElementById('modal-state-loading').classList.remove('hidden');
-        
-        // 2. Prepare Data
-        let dateFormatted = '';
-        if (state.selectedDate) {
-             const yearStr = state.selectedDate.getFullYear();
-             const monthStr = String(state.selectedDate.getMonth() + 1).padStart(2, '0');
-             const dayStr = String(state.selectedDate.getDate()).padStart(2, '0');
-             dateFormatted = `${yearStr}-${monthStr}-${dayStr}`;
-        }
-
-        // Optimistically book locally for this session
-        if(dateFormatted && !state.bookedDates.includes(dateFormatted)) {
-            state.bookedDates.push(dateFormatted);
-        }
-        
-        let areaText = '';
-        if (state.areaType === '200') areaText = 'Pequeno (Até 200m²)';
-        else if (state.areaType === '400') areaText = 'Médio (Até 400m²)';
-        else if (state.areaType === 'personalized') areaText = `Personalizado: ${state.customAreaSize}`;
-        else areaText = `Avaliar no local${state.customAreaSize ? ` (Obs: ${state.customAreaSize})` : ''}`;
-
-        // Concatenate extra info to requested fields
-        const servicesList = Array.from(state.services).join(', ');
-        const finalTerreno = `${areaText} | Serviços: ${servicesList}`;
-        const finalName = `${state.name} (CPF: ${state.cpf})`;
-
-        // 3. Construct Query Params (GET Request) - Simpler and more robust for GAS
-        const params = new URLSearchParams({
-            action: 'schedule',
-            nome: finalName,
-            cidade: state.city,
-            endereco: state.address,
-            data: dateFormatted,
-            terreno: finalTerreno,
-            whatsapp: state.phone
-        });
-
-        // 4. Send Request
-        try {
-            console.log("Sending booking via GET...");
-            
-            // Using GET avoids CORS Preflight issues on most browsers for simple requests
-            const response = await fetch(`${API_URL}?${params.toString()}`, {
-                method: 'GET',
-                redirect: 'follow'
-            });
-
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-
-            // We expect JSON back
-            const result = await response.json();
-            console.log("Result:", result);
-
-            document.getElementById('modal-state-loading').classList.add('hidden');
-            document.getElementById('modal-state-success').classList.remove('hidden');
-            lucide.createIcons(); 
-
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            
-            // Show Error Modal with WhatsApp Fallback
-            document.getElementById('modal-state-loading').classList.add('hidden');
-            document.getElementById('modal-state-error').classList.remove('hidden');
-            
-            // Setup the specific whatsapp link for the gardener
-            const gardenerNumber = "5516993982648"; // SUBSTITUA PELO NUMERO DO JARDINEIRO
-            const msg = generateWhatsAppLink().split('text=')[1]; // Extract just the message
-            
-            // Rebind the fallback button with the correct link
-            document.getElementById('btn-fallback-whatsapp').onclick = () => {
-                 window.open(`https://wa.me/${gardenerNumber}?text=${msg}`, '_blank');
-            };
-            
-            lucide.createIcons();
-        }
-      };
-
-
-      // NAVIGATION HELPER
-      function showView(viewId) {
-        ['view-calendar', 'view-services', 'view-details', 'view-review'].forEach(id => {
-          document.getElementById(id).classList.add('hidden');
-        });
-        document.getElementById(viewId).classList.remove('hidden');
-        window.scrollTo(0, 0);
-      }
-
     </script>
   </body>
 </html>
